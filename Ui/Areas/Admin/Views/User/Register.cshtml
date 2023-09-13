@@ -1,0 +1,145 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>قالب Nextable - قالب مدیریتی نکستیبل</title>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="~/assets/media/image/favicon.png">
+
+	<!-- Theme Color -->
+	<meta name="theme-color" content="#5867dd">
+
+	<!-- Plugin styles -->
+	<link rel="stylesheet" href="~/vendors/bundle.css" type="text/css">
+
+	<!-- App styles -->
+	<link rel="stylesheet" href="~/assets/css/app.css" type="text/css">
+	<link rel="stylesheet" href="~/SweetAlert/sweetalert2.min.css" type="text/css">
+</head>
+
+<body class="form-membership">
+
+	<!-- begin::page loader-->
+	<div class="page-loader">
+		<div class="spinner-border"></div>
+	</div>
+	<!-- end::page loader -->
+
+	<div class="form-wrapper">
+
+		<!-- logo -->
+		<div class="logo">
+			<img src="~/assets/media/image/logo-sm.png" alt="image">
+		</div>
+		<!-- ./ logo -->
+
+		<h5>ایجاد حساب</h5>
+
+		<!-- form -->
+		<form>
+			<div class="form-group">
+				<input type="text" id="Name" class="form-control" placeholder="نام" required autofocus>
+			</div>
+			<div class="form-group">
+				<input type="text" id="LastName" class="form-control" placeholder="نام خانوادگی" required>
+			</div>
+			<div class="form-group">
+				<input type="text" id="UsertName" class="form-control" placeholder="نام کاربری" required>
+			</div>
+			<div class="form-group">
+				<input type="text" id="Number" class="form-control text-left" placeholder="تلفن" dir="ltr" required>
+			</div>
+			<div class="form-group">
+				<input type="password" id="Password" class="form-control text-left" placeholder="رمز عبور" dir="ltr" required>
+			</div>
+			<div class="form-group">
+				<select asp-items="ViewBag.roles" class="form-control form-control-sm" id="Role">
+				</select>
+			</div>
+			<hr>
+			<p class="text-muted">حساب کاربری دارید؟</p>
+			<a href="./login.html" class="btn btn-outline-light btn-sm">وارد شوید!</a>
+		</form>
+		<!-- ./ form -->
+		<button class="btn btn-primary btn-block" id="Register">ثبت نام</button>
+
+	</div>
+
+	<!-- Plugin scripts -->
+	<script src="~/vendors/bundle.js"></script>
+
+	<!-- App scripts -->
+	<script src="~/assets/js/app.js"></script>
+	<script src="~/SweetAlert/sweetalert2.min.js"></script>
+	<script>
+		var NameInput = document.querySelector("#Name")
+		var LastNameInput = document.querySelector("#LastName")
+		var UsertNameInput = document.querySelector("#UsertName")
+		var NumberInput = document.querySelector("#Number")
+		var PasswordInput = document.querySelector("#Password")
+		var Register = document.querySelector("#Register")
+		var Role = document.querySelector("#Role")
+
+		Register.addEventListener('click',SendData)
+
+		function SendData(){
+			Swal.fire({
+			  title: 'ثبت نام?',
+			  text: "آیا کاربر ثبت نام شود؟",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'بله',
+			  cancelButtonText: 'خیر'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+					var Data ={
+					Name : NameInput.value,
+					LastName : LastNameInput.value,
+					Number : NumberInput.value,
+					Password : PasswordInput.value,
+					RoleId : Role.value,
+					UserName : UsertNameInput.value
+					}
+
+					var xhr = new XMLHttpRequest()
+					xhr.open('POST','Register')
+					xhr.onload = function (){
+						if(xhr.status == 200){
+							var RegisterResult = JSON.parse(xhr.response);
+							if(RegisterResult.isSuccess){
+							Swal.fire(
+							  'موفق!',
+							  `ثبت نام کاربر ${RegisterResult.data}با موفقیت انجام شد`,
+							  'success'
+							).then(() => window.location.replace("/admin/user") )
+							}
+							else{
+								Swal.fire({
+								  icon: 'error',
+								  title: 'خطا',
+								  text: RegisterResult.message,
+								})
+							}
+						}
+					}
+					xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+					xhr.send(JSON.stringify(Data))
+					
+			  }
+			})
+
+			
+		}
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+﻿
+@using Application.ReportsService.Query.GetReportService
+@model List<GetReportsDto>
+@{
+    ViewData["Title"] = "DayReports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+	<div class="card col-12 col-md-5 mr-2">
+		<div class="card-body">
+			<h6 class="card-title">تاریخ شروع:</h6>
+			<div class="row">
+				<div class="col">
+					<input type="text" name="date-picker-shamsi" class="form-control text-left" dir="ltr" id="Date1">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card col-12 col-md-5">
+		<div class="card-body">
+			<h6 class="card-title">تاریخ پایان:</h6>
+			<div class="row">
+				<div class = "col">
+					<input type="text" name="date-picker-shamsi" class="form-control text-left" dir="ltr" id="Date2">
+				</div>
+			</div>
+		</div>
+	</div>
+	<button id="submit" class="btn btn-success mb-4 px-5 ml-2">تایید</button>
+</div>
+
+<table class="table table-dark table-striped">
+	<thead>
+		<tr>
+			<th>شماره</th>
+			<th>ساعت شروع</th>
+			<th>ساعت پایان</th>
+			<th>درآمد</th>
+			<th>هزینه</th>
+			<th>سود</th>
+			<th>دقایق کار شده</th>
+			<th>سود در دقیقه</th>
+			<th>پیمایش</th>
+			<th>درصد رسیدن به هدف</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+	   {
+		   <tr>
+			   <td>@item.Id</td>
+			   <td>@item.BeginTime</td>
+			   <td>@item.EndTime</td>
+			   <td>@item.Income</td>
+			   <td>@item.Costs</td>
+			   <td>@item.Profit</td>
+			   <td>@item.WorkedTimeMinute</td>
+			   <td>@item.ProfitPerMinute</td>
+			   <td>@item.TodayNavigatedPerKilometers</td>
+			   <td>@item.PurposeArrivedPercent</td>
+		   </tr>
+	   }
+	</tbody>
+</table>
+
+
+@section DateB{
+	<script src="~/vendors/datepicker-jalali/bootstrap-datepicker.min.js"></script>
+	<script src="~/vendors/datepicker-jalali/bootstrap-datepicker.fa.min.js"></script>
+}
+@section DateN{
+	<script src="~/assets/js/examples/datepicker.js"></script>
+}
+@section CssDate{
+	<link rel="stylesheet" href="~/vendors/datepicker-jalali/bootstrap-datepicker.min.css">
+}
+
+@section Script{
+	<script>
+		var submit = document.getElementById("submit");
+		var Date1 = document.getElementById("Date1");
+		var Date2 = document.getElementById("Date2");
+
+		submit.addEventListener('click',() => {
+			window.location.replace(`/report/DayReports?StartDate=${Date1.value}&EndDate=${Date2.value}`)
+		})
+	</script>
+}

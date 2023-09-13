@@ -1,0 +1,112 @@
+﻿@using Application.GetUsers
+@model List<UserDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="table-responsive" tabindex="2" style="overflow: hidden; outline: none;">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">تصویر</th>
+					<th scope="col">نام</th>
+					<th scope="col">نام خانوادگی</th>
+					<th scope="col">تلفن</th>
+					<th scope="col">نام کاربری</th>
+					<th scope="col">هدف</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in @Model)
+				{
+					<tr>
+						<th scope="row">@item.Id</th>
+						<th>
+							<figure class="avatar avatar-sm">
+								<img src="@item.ImgSrc" class="rounded-circle" alt="image">
+							</figure>
+						</th>
+						<td>@item.Name</td>
+						<td>@item.LastName</td>
+						<td>@item.Number</td>
+						<td>@item.UserName</td>
+						<td class="d-flex align-items-center">
+                            @item.purpose
+                            <div class="ml-2">
+                                <a class="d-block text-primary mb-2" href="~/admin/user/purposeplus?UserId=@item.Id"><i class="accordion-status-icon open fa fa-plus"></i></a>
+                                <a class="text-primary" href="~/admin/user/purposeminus?UserId=@item.Id"><i class="accordion-status-icon open fa fa-minus"></i></a>
+                            </div>
+                        </td>
+						<td>
+							<button id="Deleate" onclick="Deleate(@item.Id)" class="btn btn-danger">حذف</button>
+							<a href="~/admin/user/Edit/@item.Id" id="Edit" class="btn btn-primary">ویرایش</a>
+						</td>
+					</tr>
+				}
+											
+			</tbody>
+		</table>
+	</div>
+</div>
+
+@section Css{
+}
+@section Script{
+	<link rel="stylesheet" href="~/SweetAlert/sweetalert2.min.css" type="text/css">
+
+	<script src="~/SweetAlert/sweetalert2.min.js"></script>
+
+	<script>
+        function Deleate(Id){
+            Swal.fire({
+            title: 'حذف?',
+            text: "آیا کاربر حذف نام شود؟",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'بله',
+            cancelButtonText: 'خیر'
+            }).then((result) => {
+                    if (result.isConfirmed) 
+                    {
+                            var url = new URL("/admin/user/deleate",`${window.location}`)
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST",`${url.href}`)
+                            var Data ={
+                                UserId : Id
+                            }
+                            xhr.onload = function()
+                            {
+                                if(xhr.status == 200)
+                                {
+                                    var AjaxResult = JSON.parse(xhr.response)
+                                    if(AjaxResult.isSuccess)
+                                    {
+                                        Swal.fire(
+                                        'موفق!',
+                                        AjaxResult.message,
+                                        'success'
+                                        ).then(() => window.location.replace("/admin/user") )
+                                    }
+                                    else{
+                                        Swal.fire({
+                                        icon: 'error',
+                                        title: 'خطا',
+                                        text: AjaxResult.message,
+                                        })
+                                    }
+                                }
+                                
+                            }
+                            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+                            xhr.send(JSON.stringify(Data))
+                    
+                    }
+                })
+    }
+    </script>
+}

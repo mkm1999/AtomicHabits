@@ -1,0 +1,111 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>ورود</title>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="~/assets/media/image/favicon.png">
+
+	<!-- Theme Color -->
+	<meta name="theme-color" content="#5867dd">
+
+	<!-- Plugin styles -->
+	<link rel="stylesheet" href="~/vendors/bundle.css" type="text/css">
+
+	<!-- App styles -->
+	<link rel="stylesheet" href="~/assets/css/app.css" type="text/css">
+	<link rel="stylesheet" href="~/SweetAlert/sweetalert2.min.css" type="text/css">
+</head>
+
+<body class="form-membership">
+
+	<!-- begin::page loader-->
+	<div class="page-loader">
+		<div class="spinner-border"></div>
+	</div>
+	<!-- end::page loader -->
+
+	<div class="form-wrapper">
+
+		<!-- logo -->
+		<div class="logo">
+			<img src="~/assets/media/image/logo-sm.png" alt="image">
+		</div>
+		<!-- ./ logo -->
+
+		<h5>ورود</h5>
+
+		<!-- form -->
+		<form>
+			<div class="form-group">
+				<input type="text" id="UsertName" class="form-control" placeholder="نام کاربری" required>
+			</div>
+			<div class="form-group">
+				<input type="password" id="Password" class="form-control text-left" placeholder="رمز عبور" dir="ltr" required>
+			</div>
+			<hr>
+			<p class="text-muted">حساب کاربری ندارید؟</p>
+			<a href="~/Authentication/Register" class="btn btn-outline-light btn-sm">ثبت نام کنید!</a>
+		</form>
+		<!-- ./ form -->
+		<button class="btn btn-primary btn-block" id="Register">ورود</button>
+
+	</div>
+
+	<!-- Plugin scripts -->
+	<script src="~/vendors/bundle.js"></script>
+
+	<!-- App scripts -->
+	<script src="~/assets/js/app.js"></script>
+	<script src="~/SweetAlert/sweetalert2.min.js"></script>
+	<script>
+		var UsertNameInput = document.querySelector("#UsertName")
+		var PasswordInput = document.querySelector("#Password")
+
+		Register.addEventListener('click',SendData)
+
+		function SendData(){
+
+				var Data ={
+					Password : PasswordInput.value,
+					UserName : UsertNameInput.value
+					}
+
+				var xhr = new XMLHttpRequest()
+				xhr.open('POST','SignIn')
+				xhr.onload = function (){
+					if(xhr.status == 200){
+						var RegisterResult = JSON.parse(xhr.response);
+						if(RegisterResult.isSuccess){
+						Swal.fire(
+							'موفق!',
+							`شما وارد شدید`,
+							'success'
+						).then(() => window.location.replace("/") )
+						}
+						else{
+							Swal.fire({
+								icon: 'error',
+								title: 'خطا',
+								text: RegisterResult.message,
+							})
+						}
+					}
+				}
+				xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+				xhr.send(JSON.stringify(Data))
+			
+		}
+	</script>
+</body>
+
+</html>

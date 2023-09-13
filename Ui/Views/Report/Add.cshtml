@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+	@section css{
+		<link rel="shortcut icon" href="~/assets/media/image/favicon.png">
+
+		<!-- Theme Color -->
+		<meta name="theme-color" content="#5867dd">
+
+
+		<!-- Clockpicker -->
+		<link rel="stylesheet" href="~/vendors/clockpicker/bootstrap-clockpicker.min.css" type="text/css">
+
+		<link rel="stylesheet" href="~/SweetAlert/sweetalert2.min.css" type="text/css">
+
+
+
+	}
+	<!-- begin::page loader-->
+	<div class="page-loader">
+		<div class="spinner-border"></div>
+	</div>
+	<!-- end::page loader -->
+
+	<div class="form-wrapper">
+
+		
+
+		<!-- form -->
+		<div class="d-flex justify-content-between mx-auto align-items-center mt-5">
+			<div class="col col-md-4 mx-auto mt-5">
+				<h5>ثبت گزارش جدید</h5>
+				<form>
+					<label>ساعت شروع</label>
+					<div class="input-group clockpicker-demo">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+							<i class="fa fa-clock-o"></i>
+							</span>
+						</div>
+						<input type="text" id="Start" class="form-control text-left" value="09:30" dir="ltr">
+					</div>
+					<label>ساعت پایان</label>
+					<div class="input-group clockpicker-demo">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+							<i class="fa fa-clock-o"></i>
+							</span>
+						</div>
+						<input type="text" class="form-control text-left" id="End" value="09:30" dir="ltr">
+					</div>
+					<div class="form-group">
+						<input type="text" id="Income" class="form-control mt-2" placeholder="درآمد" required>
+					</div>
+					
+					<div class="form-group">
+						<label>آیا آخرین سفر امروز است؟</label>
+						<input type="checkbox" id="IsLast" class="form-control mt-2" required>
+					</div>
+					<div class="form-group">
+						<input type="text" id="Costs" class="form-control text-left d-none" placeholder="هزینه های روز" dir="ltr" required>
+					</div>
+					<div class="form-group">
+						<input type="text" id="Kilometer" class="form-control text-left d-none" placeholder="پیمایش به کیلو متر" dir="ltr" required>
+					</div>
+					<hr>
+				</form>
+				<button class="btn btn-primary btn-block" id="Register">ثبت</button>
+
+			</div>
+				
+		</div>
+		
+		<!-- ./ form -->
+
+	</div>
+
+	@*<div class="popover clockpicker-popover bottom clockpicker-align-right" style="top: 205.891px; left: 1323px;"><div class="arrow"></div><div class="popover-title"><span class="clockpicker-span-hours text-primary">09</span> : <span class="clockpicker-span-minutes">30</span><span class="clockpicker-span-am-pm"></span></div><div class="popover-content"><div class="clockpicker-plate"><div class="clockpicker-canvas"><svg class="clockpicker-svg" width="200" height="200"><g transform="translate(100,100)"><line x1="0" y1="0" x2="-54" y2="9.91963907309356e-15"></line><circle class="clockpicker-canvas-fg" r="3.5" cx="-54" cy="9.91963907309356e-15"></circle><circle class="clockpicker-canvas-bg" r="13" cx="-54" cy="9.91963907309356e-15"></circle><circle class="clockpicker-canvas-bearing" cx="0" cy="0" r="2"></circle></g></svg></div><div class="clockpicker-dial clockpicker-hours" style="visibility: visible;"><div class="clockpicker-tick" style="left: 87px; top: 7px;">00</div><div class="clockpicker-tick" style="left: 114px; top: 40.2346px; font-size: 120%;">1</div><div class="clockpicker-tick" style="left: 133.765px; top: 60px; font-size: 120%;">2</div><div class="clockpicker-tick" style="left: 141px; top: 87px; font-size: 120%;">3</div><div class="clockpicker-tick" style="left: 133.765px; top: 114px; font-size: 120%;">4</div><div class="clockpicker-tick" style="left: 114px; top: 133.765px; font-size: 120%;">5</div><div class="clockpicker-tick" style="left: 87px; top: 141px; font-size: 120%;">6</div><div class="clockpicker-tick" style="left: 60px; top: 133.765px; font-size: 120%;">7</div><div class="clockpicker-tick" style="left: 40.2346px; top: 114px; font-size: 120%;">8</div><div class="clockpicker-tick" style="left: 33px; top: 87px; font-size: 120%;">9</div><div class="clockpicker-tick" style="left: 40.2346px; top: 60px; font-size: 120%;">10</div><div class="clockpicker-tick" style="left: 60px; top: 40.2346px; font-size: 120%;">11</div><div class="clockpicker-tick" style="left: 87px; top: 33px; font-size: 120%;">12</div><div class="clockpicker-tick" style="left: 127px; top: 17.718px;">13</div><div class="clockpicker-tick" style="left: 156.282px; top: 47px;">14</div><div class="clockpicker-tick" style="left: 167px; top: 87px;">15</div><div class="clockpicker-tick" style="left: 156.282px; top: 127px;">16</div><div class="clockpicker-tick" style="left: 127px; top: 156.282px;">17</div><div class="clockpicker-tick" style="left: 87px; top: 167px;">18</div><div class="clockpicker-tick" style="left: 47px; top: 156.282px;">19</div><div class="clockpicker-tick" style="left: 17.718px; top: 127px;">20</div><div class="clockpicker-tick" style="left: 7px; top: 87px;">21</div><div class="clockpicker-tick" style="left: 17.718px; top: 47px;">22</div><div class="clockpicker-tick" style="left: 47px; top: 17.718px;">23</div></div><div class="clockpicker-dial clockpicker-minutes clockpicker-dial-out" style="visibility: hidden;"><div class="clockpicker-tick" style="left: 87px; top: 7px; font-size: 120%;">00</div><div class="clockpicker-tick" style="left: 127px; top: 17.718px; font-size: 120%;">05</div><div class="clockpicker-tick" style="left: 156.282px; top: 47px; font-size: 120%;">10</div><div class="clockpicker-tick" style="left: 167px; top: 87px; font-size: 120%;">15</div><div class="clockpicker-tick" style="left: 156.282px; top: 127px; font-size: 120%;">20</div><div class="clockpicker-tick" style="left: 127px; top: 156.282px; font-size: 120%;">25</div><div class="clockpicker-tick" style="left: 87px; top: 167px; font-size: 120%;">30</div><div class="clockpicker-tick" style="left: 47px; top: 156.282px; font-size: 120%;">35</div><div class="clockpicker-tick" style="left: 17.718px; top: 127px; font-size: 120%;">40</div><div class="clockpicker-tick" style="left: 7px; top: 87px; font-size: 120%;">45</div><div class="clockpicker-tick" style="left: 17.718px; top: 47px; font-size: 120%;">50</div><div class="clockpicker-tick" style="left: 47px; top: 17.718px; font-size: 120%;">55</div></div></div><span class="clockpicker-am-pm-block"></span></div><button type="button" class="btn btn-light btn-block clockpicker-button">انجام شد</button></div>
+*@	
+	@section Script{
+		<!-- Clockpicker -->
+		<script src="~/vendors/clockpicker/bootstrap-clockpicker.min.js"></script>
+		<script src="~/assets/js/examples/clockpicker.js"></script>
+
+		<script src="~/SweetAlert/sweetalert2.min.js"></script>
+		<script>
+			var IsLast = document.querySelector("#IsLast")
+			var Costs = document.querySelector("#Costs")
+			var Kilometer = document.querySelector("#Kilometer")
+			var Income = document.querySelector("#Income")
+			var Register = document.querySelector("#Register")
+			var Start = document.querySelector("#Start")
+			var End = document.querySelector("#End")
+
+
+			IsLast.addEventListener('click',() => {
+				Kilometer.classList.remove("d-none")
+				Costs.classList.remove("d-none")
+			})
+
+			Register.addEventListener('click' , () => {
+
+
+			Swal.fire({
+			  title: 'ثبت؟',
+			  text: "آیا گزارش ثبت شود؟",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'بله',
+			  cancelButtonText: 'خیر'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+
+				if(Start.value == "" || End.value == "")
+				{
+					Swal.fire({
+									icon: 'error',
+									title: 'خطا',
+									text: "ساعت شروع و پایان را وارد کنید",
+									})
+				}
+				else
+				{
+					var Data = {
+					BeginTime : Start.value,
+					EndTime : End.value,
+					Income : Income.value,
+					TodayNavigatedPerKilometers : Kilometer.value,
+					TodayCosts : Costs.value,
+					IsLast : `${IsLast.checked}`
+					}
+					var xhr = new XMLHttpRequest()
+					xhr.open("POST","Add")
+					xhr.onload = function(){
+						if(xhr.status == 200){
+							var Result = JSON.parse(xhr.response)
+							if(Result.isSuccess)
+							{
+								if(Result.data < 25)
+								{
+									Swal.fire({
+										title: 'موفق',
+										icon: 'success',
+										html:
+											`خسته نباشید شما ${Result.data} درصد سفر های امروز را انجام داده اید` +
+											`<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Result.data}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">${Result.data}%</div></div>`,
+										showCloseButton: true,
+										focusConfirm: false,
+										confirmButtonText:
+											'OK'
+										})
+								}
+								else if(Result.data < 50 && Result.data >= 25)
+								{
+									Swal.fire({
+										title: 'موفق',
+										icon: 'success',
+										html:
+											`خسته نباشید شما ${Result.data} درصد سفر های امروز را انجام داده اید` +
+											`<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Result.data}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">${Result.data}%</div></div>`,
+										showCloseButton: true,
+										focusConfirm: false,
+										confirmButtonText:
+											'OK'
+										})
+								}
+								else if(Result.data < 100 && Result.data >= 50)
+								{
+									Swal.fire({
+										title: 'موفق',
+										icon: 'success',
+										html:
+											`تبریک شما  ${Result.data} درصد سفر های امروز را انجام داده اید` +
+											`<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Result.data}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">${Result.data}%</div></div>`,
+										showCloseButton: true,
+										focusConfirm: false,
+										confirmButtonText:
+											'OK'
+										})
+								}
+								else if(Result.data >= 100)
+								{
+									Swal.fire({
+										title: 'موفق',
+										icon: 'success',
+										html:
+											'تبریک شماهمه ی  سفر های امروز را انجام داده اید' +
+											`<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${Result.data}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">${Result.data}%</div></div>`,
+										showCloseButton: true,
+										focusConfirm: false,
+										confirmButtonText:
+											'OK'
+										})
+								}
+								
+							}
+							else
+							{
+								Swal.fire({
+									icon: 'error',
+									title: 'خطا',
+									text: Result.message,
+									})
+							}
+						}
+					}
+					xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8')
+					xhr.send(JSON.stringify(Data))
+				}
+					
+			  }
+			})
+
+				
+			})
+		</script>
+	}
