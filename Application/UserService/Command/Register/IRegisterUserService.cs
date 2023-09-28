@@ -71,7 +71,6 @@ namespace Application.UserService.Command.Register
                 Number = request.Number,
                 Role = role,
                 UserName = request.UserName,
-                Purpose = 4
             };
             var HashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
             user.Password = HashedPassword;

@@ -42,6 +42,6 @@ namespace Persistence.Context
         //DbSets
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Report> Reports { get; set; }
+        public DbSet<ToDo> ToDos { get; set; }
     }
 }

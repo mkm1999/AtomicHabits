@@ -15,11 +15,8 @@ namespace Domain.Entities
         public string UserName { get; set; }
         public string Password { get; set; }
         public string ImgSrc { get; set; }
-        public int Purpose { get; set; }
-
         public  Role Role { get; set; }
         public int RoleId { get; set; }
-
-        public ICollection<Report> Reports { get; set; }
+        public virtual ICollection<ToDo> ToDos { get; set; }
     }
 }

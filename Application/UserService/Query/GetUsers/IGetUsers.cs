@@ -28,7 +28,6 @@ namespace Application.GetUsers
                 LastName = u.LastName,
                 Name = u.Name,
                 Number = u.Number,
-                purpose = u.Purpose,
             }).ToList();
             return users;
         }

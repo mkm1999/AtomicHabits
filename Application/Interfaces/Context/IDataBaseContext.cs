@@ -18,8 +18,8 @@ namespace Application.Interfaces.Context
 
         //DbSets
         DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<Report> Reports { get; set; }
+        DbSet<Role> Roles { get; set; }
+        DbSet<ToDo> ToDos { get; set; }
 
 
 
