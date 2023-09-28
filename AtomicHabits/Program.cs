@@ -1,3 +1,5 @@
+using Application.Interfaces.Context;
+using Application.ToDoServices;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
 
@@ -12,6 +14,8 @@ builder.Services.AddSwaggerGen();
 
 string ConnectionString = builder.Configuration.GetValue<string>("ConnectionStrings:SqlServer");
 builder.Services.AddDbContext<DataBaseContext>(option => option.UseSqlServer(ConnectionString));
+builder.Services.AddScoped<IDataBaseContext, DataBaseContext>();
+builder.Services.AddTransient<IToDoService, ToDoService>();
 
 var app = builder.Build();
 
