@@ -18,9 +18,32 @@ namespace AtomicHabits.Controllers
 
         // GET: api/<ToDoController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get(DateTime date, [FromQuery] int UserId)
         {
-            return new string[] { "value1", "value2" };
+            var result = _toDoService.GetSpecificDayToDos(DateOnly.Parse(date.Date.ToShortDateString()),UserId);
+            if(!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+            foreach (var item in result.Data)
+            {
+                item.Links = new List<Link> 
+                    {
+                        new Link
+                        {
+                            Method = "Delet",
+                            href = Url.Action(nameof(Delete),"ToDo",new{id = item.Id}),
+                            rel ="Delete"
+                        },
+                        new Link
+                        {
+                            Method = "Put",
+                            href = Url.Action(nameof(Put),"ToDo"),
+                            rel ="Edit"
+                        },
+                    };
+            }
+            return Ok(result);
         }
 
         // GET api/<ToDoController>/5
@@ -39,16 +62,28 @@ namespace AtomicHabits.Controllers
             return BadRequest(result);
         }
 
-        // PUT api/<ToDoController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<ToDoController>
+        [HttpPut]
+        public IActionResult Put(RequestEditTodoDto request)
         {
+            var result = _toDoService.EditToDo(request);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
 
         // DELETE api/<ToDoController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var result = _toDoService.RemoveToDo(id);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
     }
 }

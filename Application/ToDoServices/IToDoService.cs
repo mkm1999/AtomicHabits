@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces.Context;
 using CommonProject.Entities;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Application.ToDoServices
     {
         ResultDto AddToDo(RequestAddTodoDto request);
         ResultDto<List<ToDoDto>> GetSpecificDayToDos(DateOnly date, int UserId);
+        ResultDto RemoveToDo(int Id);
+        ResultDto EditToDo(RequestEditTodoDto request);
     }
 
     public class ToDoService : IToDoService
@@ -72,9 +75,47 @@ namespace Application.ToDoServices
             };
         }
 
+        public ResultDto EditToDo(RequestEditTodoDto request)
+        {
+            var ToDo = _context.ToDos.Find(request.Id);
+            if(ToDo == null)
+            {
+                return new ResultDto
+                {
+                    Message = "todoیافت نشد.",
+                    IsSuccess = false
+                };
+            }
+            if(! string.IsNullOrEmpty(request.Title))
+            {
+                ToDo.Title = request.Title;
+            }
+
+            if (!string.IsNullOrEmpty(request.Type))
+            {
+                ToDo.Type = Enum.Parse<ToDoType>(request.Type);
+            }
+
+            if (!string.IsNullOrEmpty(request.Status))
+            {
+                ToDo.Status = Enum.Parse<Status>(request.Status);
+            }
+
+            if (request.DateTime != default(DateTime) && request.DateTime != null)
+            {
+                ToDo.DateTime = request.DateTime.Value;
+            }
+            _context.SaveChanges();
+            return new ResultDto
+            {
+                IsSuccess = true,
+                Message = "با موفقیت ویرایش شد"
+            };
+        }
+
         public ResultDto<List<ToDoDto>> GetSpecificDayToDos(DateOnly date, int UserId)
         {
-            var user = _context.Users.Find(UserId);
+            var user = _context.Users.Where(u => u.Id == UserId).Include(u => u.ToDos).SingleOrDefault();
             if (user == null)
             {
                 return new ResultDto<List<ToDoDto>>
@@ -83,11 +124,12 @@ namespace Application.ToDoServices
                     Message = "کاربر یافت نشد"
                 };
             }
-            var ToDos = user.ToDos.Where(t => DateOnly.Parse(t.DateTime.ToString()) == date).Select(t => new ToDoDto
+            var ToDos = user.ToDos.Where(t => DateOnly.Parse(t.DateTime.ToShortDateString()) == date).Select(t => new ToDoDto
             {
                 Status = t.Status.ToString(),
                 Title = t.Title,
-                Type = t.Title.ToString(),
+                Type = t.Type.ToString(),
+                Id = t.Id,
             }).ToList();
             return new ResultDto<List<ToDoDto>>
             {
@@ -95,6 +137,26 @@ namespace Application.ToDoServices
                 Data = ToDos
             };
 
+        }
+
+        public ResultDto RemoveToDo(int Id)
+        {
+            var ToDo = _context.ToDos.Find(Id);
+            if(ToDo == null)
+            {
+                return new ResultDto
+                {
+                    Message = "todoیافت نشد.",
+                    IsSuccess = false
+                };
+            }
+            _context.ToDos.Remove(ToDo);
+            _context.SaveChanges();
+            return new ResultDto
+            {
+                IsSuccess = true,
+                Message = "todo مورد نظر حذف شد"
+            };
         }
     }
 
@@ -108,8 +170,26 @@ namespace Application.ToDoServices
     }
     public class ToDoDto
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Type { get; set; }
         public string Status { get; set; }
+        public List<Link> Links { get; set; }
+    }
+
+    public class RequestEditTodoDto
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public DateTime? DateTime { get; set; }
+        public string Type { get; set; }
+        public string Status { get; set; }
+    }
+
+    public class Link
+    {
+        public string href { get; set; }
+        public string rel { get; set; }
+        public string Method { get; set; }
     }
 }
