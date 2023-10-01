@@ -10,7 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(option =>
+{
+    option.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,"AtomicHabits.xml"),true);
+});
 
 string ConnectionString = builder.Configuration.GetValue<string>("ConnectionStrings:SqlServer");
 builder.Services.AddDbContext<DataBaseContext>(option => option.UseSqlServer(ConnectionString));

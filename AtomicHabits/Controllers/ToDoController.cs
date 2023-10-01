@@ -17,6 +17,13 @@ namespace AtomicHabits.Controllers
         }
 
         // GET: api/<ToDoController>
+
+        /// <summary>
+        /// های یک روز خاص برای یک شخص خاص todo دریافت لیست
+        /// </summary>
+        /// <param name="date">تاریخ روز مورد نظر</param>
+        /// <param name="UserId">آیدی شخص مورد نظر</param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Get(DateTime date, [FromQuery] int UserId)
         {
@@ -54,6 +61,12 @@ namespace AtomicHabits.Controllers
         }
 
         // POST api/<ToDoController>
+
+        /// <summary>
+        /// افزودن یک todo جدید برای یک شخص خاص
+        /// </summary>
+        /// <param name="requset"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Post([FromBody] RequestAddTodoDto requset)
         {
@@ -63,6 +76,12 @@ namespace AtomicHabits.Controllers
         }
 
         // PUT api/<ToDoController>
+
+        /// <summary>
+        /// ویرایش یک todo
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut]
         public IActionResult Put(RequestEditTodoDto request)
         {
@@ -75,6 +94,12 @@ namespace AtomicHabits.Controllers
         }
 
         // DELETE api/<ToDoController>/5
+
+        /// <summary>
+        /// حذف یک todo
+        /// </summary>
+        /// <param name="id">ایدی todo</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
