@@ -1,4 +1,5 @@
 ﻿using Application.ToDoServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -7,6 +8,7 @@ namespace AtomicHabits.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ToDoController : ControllerBase
     {
         private readonly IToDoService _toDoService;
@@ -25,9 +27,10 @@ namespace AtomicHabits.Controllers
         /// <param name="UserId">آیدی شخص مورد نظر</param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Get(DateTime date, [FromQuery] int UserId)
+        public IActionResult Get(DateTime date)
         {
-            var result = _toDoService.GetSpecificDayToDos(DateOnly.Parse(date.Date.ToShortDateString()),UserId);
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+            var result = _toDoService.GetSpecificDayToDos(DateOnly.Parse(date.Date.ToShortDateString()),userId);
             if(!result.IsSuccess)
             {
                 return BadRequest(result);
@@ -70,6 +73,8 @@ namespace AtomicHabits.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] RequestAddTodoDto requset)
         {
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+            requset.UserId = userId;
             var result = _toDoService.AddToDo(requset);
             if (result.IsSuccess) return Ok(result);
             return BadRequest(result);

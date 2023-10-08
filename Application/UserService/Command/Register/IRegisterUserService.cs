@@ -62,7 +62,7 @@ namespace Application.UserService.Command.Register
                     Message = "نام خانوادگی  را وارد کنید"
                 };
             }
-            var role = _context.Roles.Find(request.RoleId);
+            var role = _context.Roles.Find(2);
             var user = new User
             {
                 Name = request.Name,
@@ -93,6 +93,6 @@ namespace Application.UserService.Command.Register
         public string UserName { get; set; }
         public string Password { get; set; }
         public string ImgSrc { get; set; }
-        public int RoleId { get; set; }
+        //public int RoleId { get; set; }
     }
 }

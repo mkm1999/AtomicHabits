@@ -37,6 +37,7 @@ namespace Persistence.Context
                 Id = 3,
                 Name = "Creator",
             });
+            modelBuilder.Entity<User>().HasIndex(u => u.UserName).IsUnique();
         }
 
         //DbSets
