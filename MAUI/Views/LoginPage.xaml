@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI.Views.LoginPage"
+             Title="Login">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+    <VerticalStackLayout Spacing="10" Padding="45,0" VerticalOptions="Center">
+        <Entry Placeholder="UserName" x:Name="entryUserName">
+            
+        </Entry>
+        <Entry Placeholder="Password" x:Name="entryPassword">
+            
+        </Entry>
+        <Button Text="ورود" x:Name="btn_login" Clicked="btn_login_Clicked"/>
+        <Label Margin="0,0,2,0" HorizontalOptions="End" Text="ثبت نام کنید!" TextColor="Blue" TextDecorations="Underline">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding TapCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
+    </VerticalStackLayout>
+</ContentPage>

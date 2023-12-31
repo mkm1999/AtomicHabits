@@ -24,7 +24,6 @@ namespace AtomicHabits.Controllers
         /// های یک روز خاص برای یک شخص خاص todo دریافت لیست
         /// </summary>
         /// <param name="date">تاریخ روز مورد نظر</param>
-        /// <param name="UserId">آیدی شخص مورد نظر</param>
         /// <returns></returns>
         [HttpGet]
         public IActionResult Get(DateTime date)
@@ -33,7 +32,7 @@ namespace AtomicHabits.Controllers
             var result = _toDoService.GetSpecificDayToDos(DateOnly.Parse(date.Date.ToShortDateString()),userId);
             if(!result.IsSuccess)
             {
-                return BadRequest(result);
+                return Ok(result);
             }
             foreach (var item in result.Data)
             {
@@ -76,8 +75,7 @@ namespace AtomicHabits.Controllers
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
             requset.UserId = userId;
             var result = _toDoService.AddToDo(requset);
-            if (result.IsSuccess) return Ok(result);
-            return BadRequest(result);
+            return Ok(result);
         }
 
         // PUT api/<ToDoController>
@@ -93,7 +91,7 @@ namespace AtomicHabits.Controllers
             var result = _toDoService.EditToDo(request);
             if (!result.IsSuccess)
             {
-                return BadRequest(result);
+                return Ok(result);
             }
             return Ok(result);
         }
@@ -111,7 +109,7 @@ namespace AtomicHabits.Controllers
             var result = _toDoService.RemoveToDo(id);
             if (!result.IsSuccess)
             {
-                return BadRequest(result);
+                return Ok(result);
             }
             return Ok(result);
         }

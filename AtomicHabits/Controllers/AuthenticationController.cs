@@ -37,7 +37,7 @@ namespace AtomicHabits.Controllers
             var result = login.Execute(request);
             if (!result.IsSuccess)
             {
-                return Unauthorized(result.Message);
+                return Unauthorized(result);
             }
             var Claims = new List<Claim>
             {
@@ -61,14 +61,18 @@ namespace AtomicHabits.Controllers
                 message = result.Message
             });
         }
-
+        /// <summary>
+        /// ثبت نام
+        /// </summary>
+        /// <param name="request">اطلاعات ثبت نام</param>
+        /// <returns></returns>
         [HttpPost("SignUp")]
         public IActionResult SignUp(RequestRegisterUserDto request)
         {
             var result = registerUserService.Execute(request);
             if (!result.IsSuccess)
             {
-                return BadRequest(result.Message);
+                return BadRequest(result);
             }
             return Ok(new {
                 message = result.Message,
@@ -78,6 +82,27 @@ namespace AtomicHabits.Controllers
                     rel = "SignIn",
                     method = "POST",
                 }
+            });
+
+        }
+
+        /// <summary>
+        /// برسی وضعیت احراز هویت
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet()]
+        public IActionResult IsAuthenticated()
+        {
+            if (User.Identity?.IsAuthenticated ?? false)
+            {
+                return Ok(new
+                {
+                    IsAuthenticated = true,
+                });
+            }
+            return Ok(new
+            {
+                IsAuthenticated = false,
             });
         }
     }
