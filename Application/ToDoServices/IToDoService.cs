@@ -15,6 +15,7 @@ namespace Application.ToDoServices
         ResultDto AddToDo(RequestAddTodoDto request);
         ResultDto<List<ToDoDto>> GetSpecificDayToDos(DateOnly date, int UserId);
         ResultDto RemoveToDo(int Id);
+        ResultDto<ToDoDto> GetToDo(int Id);
         ResultDto EditToDo(RequestEditTodoDto request);
     }
 
@@ -137,6 +138,31 @@ namespace Application.ToDoServices
                 Data = ToDos
             };
 
+        }
+
+        public ResultDto<ToDoDto> GetToDo(int Id)
+        {
+            var ToDo = _context.ToDos.Find(Id);
+            if(ToDo == null)
+            {
+                return new ResultDto<ToDoDto>
+                {
+                    IsSuccess = false,
+                    Message = "یافت نشد"
+                };
+            }
+            var returnToDo = new ToDoDto
+            {
+                Id = Id,
+                Title = ToDo.Title,
+                Type = ToDo.Type.ToString(),
+                Status = ToDo.Status.ToString(),
+            };
+            return new ResultDto<ToDoDto>
+            {
+                IsSuccess = true,
+                Data = returnToDo
+            };
         }
 
         public ResultDto RemoveToDo(int Id)

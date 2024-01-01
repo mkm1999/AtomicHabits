@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI.Views.AddToDoPage"
+             Title="AddToDo">
+    <VerticalStackLayout Spacing="10" Padding="45,0" VerticalOptions="Center">
+        <Entry Placeholder="عنوان" x:Name="entryTitle" HorizontalTextAlignment="End">
+
+        </Entry>
+        <HorizontalStackLayout HorizontalOptions="End">
+            <Entry Placeholder="سال" x:Name="entryYear" HorizontalTextAlignment="Center" VerticalOptions="Center">
+
+            </Entry>
+            <Label Text="/" VerticalOptions="Center"/>
+            <Entry Placeholder="ماه" x:Name="entryMonth" HorizontalTextAlignment="Center" VerticalOptions="Center">
+
+            </Entry>
+            <Label Text="/" VerticalOptions="Center"/>
+            <Entry Placeholder="روز" x:Name="entryDay" HorizontalTextAlignment="Center" VerticalOptions="Center">
+
+            </Entry>
+            <Label Text="تاریخ شمسی مانند 1402/08/10 :" VerticalOptions="Center" FontSize="13" TextColor="Gray"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout HorizontalOptions="End">
+            <Entry Placeholder="ساعت (24)" x:Name="entryHour" HorizontalTextAlignment="Center" VerticalOptions="Center">
+
+            </Entry>
+            <Label Text=":" VerticalOptions="Center"/>
+            <Entry Placeholder="دقیقه (00)" x:Name="entryMinute" HorizontalTextAlignment="Center" VerticalOptions="Center">
+
+            </Entry>
+            <Label Text="زمان شروع :" VerticalOptions="Center" FontSize="13" TextColor="Gray"/>
+        </HorizontalStackLayout>
+        <Picker x:Name="picker"
+                Title="نوع فعالیت را انتخاب کنید"
+                HorizontalTextAlignment="End"
+                >
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>وظیفه</x:String>
+                    <x:String>رویداد</x:String>
+                    <x:String>اطلاعات</x:String>
+                    <x:String>گزارش</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <Button Text="ثبت" x:Name="btn_Submit" Clicked="btn_Submit_Clicked"/>
+    </VerticalStackLayout>
+</ContentPage>

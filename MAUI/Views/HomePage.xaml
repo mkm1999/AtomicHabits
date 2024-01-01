@@ -14,10 +14,10 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
-                            <Grid  VerticalOptions="Center" RowDefinitions="*" ColumnDefinitions="*,*,*,*,*,*">
-                                <Label Grid.Column="5" Grid.Row="0" Text="{Binding Title}" TextColor="Black"  VerticalOptions="Center" HorizontalOptions="End"/>
-                                <Label Grid.Column="4" Grid.Row="0" Text="{Binding Type}" TextColor="Gray"  VerticalOptions="Center" HorizontalOptions="Center"/>
-                                <Label Grid.Column="3" Grid.Row="0" Text="{Binding Status}" TextColor="Gray"  VerticalOptions="Center" HorizontalOptions="End">
+                            <Grid  VerticalOptions="Center" RowDefinitions="*" ColumnDefinitions="*,*,*,*,1.5*,*">
+                                <Label Grid.Column="5" Grid.Row="0" Text="{Binding Title}" HorizontalTextAlignment="End" TextColor="Black"  VerticalOptions="Center" HorizontalOptions="End"/>
+                                <Label Grid.Column="4" Grid.Row="0" Text="{Binding Type}" HorizontalTextAlignment="End" TextColor="Gray"  VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label Grid.Column="3" Grid.Row="0" Text="{Binding Status}" HorizontalTextAlignment="End" TextColor="Gray"  VerticalOptions="Center" HorizontalOptions="End">
                                     <Label.Triggers>
                                         <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Finished">
                                             <Setter Property="TextColor" Value="#1ab042" />

@@ -55,13 +55,16 @@ namespace AtomicHabits.Controllers
             return Ok(result);
         }
 
-        // GET api/<ToDoController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        /// <summary>
+        /// دریافت یک تودو با ایدی
+        /// </summary>
+        /// <param name="id">آیدی تودو</param>
+        /// <returns></returns>
+        [HttpGet("GetToDo/{id}")]
+        public IActionResult GetToDo(int  id)
         {
-            return "value";
+            return Ok(_toDoService.GetToDo(id));
         }
-
         // POST api/<ToDoController>
 
         /// <summary>

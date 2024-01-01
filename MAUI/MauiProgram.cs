@@ -1,4 +1,5 @@
-﻿using MAUI.Services.AuthenticationServices;
+﻿using CommunityToolkit.Maui;
+using MAUI.Services.AuthenticationServices;
 using MAUI.Services.ToDoSevices;
 using MAUI.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ namespace MAUI
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -28,6 +30,7 @@ namespace MAUI
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<SignUpPage>();
+            builder.Services.AddTransient<AddToDoPage>();
             return builder.Build();
         }
     }
