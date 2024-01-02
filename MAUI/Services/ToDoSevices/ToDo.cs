@@ -20,7 +20,7 @@ namespace MAUI.Services.ToDoSevices
         {
             string token = Token.GetToken();
             if (string.IsNullOrEmpty(token)) token = "kopsdopk";
-            RestClientOptions = new RestClientOptions("http://5.239.47.28:82/api")
+            RestClientOptions = new RestClientOptions("http://todoapp.snapcalc.ir/api")
             {
                 Authenticator = new JwtAuthenticator(token)
             };

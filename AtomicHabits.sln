@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonProject", "CommonProj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtomicHabits", "AtomicHabits\AtomicHabits.csproj", "{84702CAD-5D10-4ADC-B34B-2A6D0E35D9D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAUI", "MAUI\MAUI.csproj", "{C0F634A7-79F8-43AC-8BFD-2E0ABFE61D0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo", "MAUI\ToDo.csproj", "{C0F634A7-79F8-43AC-8BFD-2E0ABFE61D0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
